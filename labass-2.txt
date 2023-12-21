@@ -1,0 +1,352 @@
+LAB Manual-2
+
+11. Write a shell script which will generate first n Fibonacci numbers
+like: 1, 1, 2, 3, 5.
+N=6
+a=0
+b=1
+echo "The Fibonacci series is : "
+for (( i=0; i<N; i++ ))
+do
+echo -n "$a "
+fn=$((a + b))
+a=$b
+b=$fn
+done
+
+12. Write a shell script to display multiplication table of given
+Number.
+clear
+echo -----------------------------------
+echo '\tMultiplication Table'
+echo -----------------------------------
+echo Enter table number
+read tn
+echo Enter how many rows
+read n
+i=1
+while [ $i -le $n ]
+do
+k=$(expr $i \* $tn)
+echo "$i * $tn = $k"
+i=$(expr $i + 1)
+done
+
+13. Write a shell script to enter any character than find out is it in
+upper/lower case or digit?
+
+echo enter any character
+read character
+case $character in
+[a-z])echo you have entered small character
+;;
+[A-Z])echo you have entered capital character
+;;
+[0-9])echo you have entered digit
+;;
+?)echo you have entered a special character
+;;
+*)echo you have entered more than one character
+;;
+Esac
+14. Write a shell script to enter any character than find out is it in vowels
+in small or capital case.
+echo enter the word
+read word
+case $word in
+[aeiou]*)echo the word starts with small case vowels
+;;
+[AEIUO]*)echo the word starts with capital case vowels
+;;
+*[0-9])echo the word ends with digit
+;;
+???)echo you have entered three character word.
+;;
+*)echo this is default case
+;;
+Esac
+15. Write a shell script to generate mark sheet of a student. Take 3
+subjects, calculate and display total marks, percentage and Class
+Obtained by the student.
+echo " Enter name "
+read name
+echo " Enter enrollment number "
+read no
+echo " Enter your marks "
+
+read m1
+read m2
+read m3
+total=$(expr $m1 + $m2 + $m3 )
+avg=$(expr $total / 3)
+echo "Student Name : $name"
+echo "EnrollMent NUmber: $no"
+echo "Average is : $avg"
+if [ $m1 -ge 35 ] && [ $m2 -ge 35 ] && [ $m3 -ge 35 ]
+then
+echo "Result is: Pass"
+if [ $avg -ge 80 ] && [ $avg -le 100 ]
+then
+echo "Result is: Distinction"
+elif [ $avg -ge 61 ] && [ $avg -le 79 ]
+then
+echo "Result is: First class"
+elif [ $avg -ge 35 ] && [ $avg -le 60 ]
+then
+echo "Result is: Second class"
+fi
+else
+echo "Result is: fail"
+fi
+16. Write A Script To Perform Following String Operations Using Menu:
+1. FIND THE OCCURRENCE OF A CHARACTER FROM A STRING.
+2. JOIN TWO STRINGS.
+3.FIND THE LENGTH OF A GIVEN STRING.
+4.REVERSE THE STRING.
+choice=y
+while [ "$choice" = "y" ]
+do
+clear
+echo "What do you want to perform?"
+echo "1. COMAPRE TWO STRINGS"
+echo "2. JOIN TWO STRINGS"
+echo "3. FIND THE LENGTH OF A GIVEN STRING"
+echo "4. OCCURRENCE OF A CHARACTER AND WORDS"
+echo "5. REVERSE THE STRING"
+
+echo ""
+echo -n "Enter Your Choice: "
+read ch
+case $ch in
+1) echo "Enter First String: "
+read str1
+echo "Enter Second String: "
+read str2
+if [ "$str1" = "$str2" ]
+then
+echo "Both Strings are Same..."
+else
+echo "Both Strings are Different..."
+fi
+;;
+2) echo -n "Enter First String: "
+read str1
+echo -n "Enter Second String: "
+read str2
+newstr=$str1$str2
+echo "After joining $str1 and $str2 : "
+echo $newstr
+;;
+3) echo -n "Enter String: "
+read str
+len=`echo $str | wc -c`
+len=`expr $len - 1`
+echo "Length Of a Given String Is: "$len
+;;
+4) echo -n "Enter a String: "
+read str
+
+echo -n "Enter a Character Which You Want To Count: "
+
+read char
+
+echo -n "Enter a Word Which You Want To Count: "
+read wrd
+c=0
+
+len=`echo $str | wc -c`
+len=`expr $len - 1`
+
+i=1
+while [ $i -le $len ]
+do
+
+tmp=`echo $str | cut -c $i`
+if [ "$tmp" = "$char" ]
+then
+c=`expr $c + 1`
+fi
+i=`expr $i + 1`
+done
+w=0
+for i in $str
+do
+if [ "$i" = "$wrd" ]
+then
+w=`expr $w + 1`
+fi
+done
+echo "No. Of Occurrence of Character $char Is: "$c
+echo "No. Of Occurrence of Word $wrd Is: "$w
+;;
+
+5) echo -n "Enter a String: "
+read str
+len=`echo $str | wc -c`
+
+len=`expr $len - 1`
+while [ $len -gt 0 ]
+do
+c=`echo $str | cut -c $len`
+revstr=$revstr$c
+len=`expr $len - 1`
+
+done
+echo "The String Is Reversed..."
+echo "The Reverse String Is: "$revstr
+;;
+*) echo "Invalid Input"
+
+;;
+esac
+echo ""
+echo -n "Do u want to continue? [y/n]"
+read ch1
+case $ch1 in
+Y|y) choice=y
+;;
+N|n) choice=n
+;;
+*) choice=y
+;;
+esac
+done
+17. Write a script to perform following employee operations using menu:
+1. Add Employee Record"
+2. View Employee Record"
+3. Delete Employee Record"
+4. Modify Employee Record"
+5. Count Total no of Employee Record"
+6. List Employees in Descending Order of Salary for Gender".
+clear
+while :
+do
+echo "-------------------Menu-----------------"
+echo "1. Add Employee Record"
+echo "2. View Employee Record"
+echo "3. Delete Employee Record"
+echo "4. Modify Employee Record"
+echo "5. Count Total no of Employee Record"
+echo "6. List Employees in Descending Order of Salary for Gender"
+echo "7. Exit"
+echo "Enter your Choice"
+echo "------------------------------------------"
+read ch
+case $ch in
+1)
+echo "Enter Employee No :"
+
+read eno
+echo "Enter Employee Name :"
+read ename
+echo "Enter Employee Address :"
+read eadd
+echo "Enter Employee Age :"
+read eage
+echo "Enter Employee Gender "
+read egender
+echo "Enter Employee Designation: "
+read edes
+echo "Enter Employee Basic Salary: "
+read bs
+echo $eno:$ename:$eadd:$eage:$egender:$edes:$bs >> emp
+echo "Record Inserted............."
+;;
+2)
+cat emp
+;;
+3)
+#cat emp
+echo "Enter Employee No:"
+read no
+c=`cat emp | cut -d ':' -f1 | grep -w $no | wc -l`
+if [ $c -eq 0 ]
+then
+echo "Employee not found"
+else
+touch temp2
+for i in `cat emp`
+do
+tno=`echo $i | cut -d ':' -f1`
+if [ $no -ne $tno ]
+then
+echo $i >> temp2
+fi
+done
+mv temp2 emp
+fi
+;;
+
+4)
+#cat emp
+echo "Enter Employee No: "
+read eno
+c=`cut -d ':' -f1 emp | grep -wc $eno`
+if [ $c -eq 0 ]
+then
+echo "Employee Does Not Found"
+exit;
+else
+if [ -f settemp ]
+then
+
+rm settemp
+fi
+touch settemp
+for i in `cat emp`
+do
+no=`echo $i | cut -d ':' -f1`
+if [ $no -eq $eno ]
+then
+echo "Enter Employee Name :"
+
+read ename
+echo "Enter Employee Address :"
+read eadd
+echo "Enter Employee Age :"
+read eage
+echo "Enter Employee Gender "
+read egender
+echo "Enter Employee Designation: "
+read edes
+echo "Enter Employee Basic Salary: "
+read bs
+
+echo $eno:$ename:$eage:$egender:$edes:$bs >> settemp
+
+echo "Record Updated............."
+
+else
+
+echo $i >> settemp
+fi
+done
+
+mv settemp emp
+fi
+;;
+5)
+t=`cat emp | wc -l`
+echo "Total no. of Recode is : $t"
+;;
+6)
+echo "Enter Gender (male/female): "
+read gen
+gen=`echo $gen | tr [a-z] [A-Z]`
+echo $gen
+if [ $gen == "MALE" ]
+then
+cat emp | grep -w "male"
+t=`cat emp | grep -w 'male' >> male_emp`
+echo $t
+echo $t | sort -n -r -t : -k 7
+fi
+;;
+7)
+exit
+;;
+*)
+echo "Invalid Option"
+
+esac
+done
